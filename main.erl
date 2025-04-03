@@ -1,19 +1,26 @@
 -module(main).
 
--export([start/0, do/1, initdb/0, stop/0]).
-
--include_lib("inets/include/httpd.hrl").
+-export([start/0, restart/0, initdb/0, stop/0]).
 
 start() ->
+    c:c(root),
+    c:c(util),
+    c:c(person),
+    c:c(car),
+    c:c(engine),
     odbc:start(),
     inets:start(),
     inets:start(httpd,
                 [{port, 3003},
-                 {server_name, "dupa"},
+                 {server_name, "dupa1"},
                  {server_root, "/tmp"},
                  {document_root, "/tmp"},
                  {bind_address, "localhost"},
-                 {modules, [main, person, notfound]}]).
+                 {modules, [root, person, notfound]}]).
+
+restart() ->
+    stop(),
+    start().
 
 stop() ->
     odbc:stop(),
@@ -34,15 +41,3 @@ initdb() ->
                     "INTEGER NOT NULL, shape TEXT NOT NULL, horsepower INTEGER NOT "
                     "NULL)"),
      odbc:disconnect(ConRef)}.
-
-do(M) when M#mod.request_uri == "/" ->
-    {break, [{response, {404, ""}}]};
-do(M)
-    when M#mod.method == "GET"
-         orelse M#mod.method == "DELETE"
-         orelse M#mod.method == "PATCH"
-         orelse M#mod.method == "POST" ->
-    [_ | S] = string:split(M#mod.request_uri, "/", all),
-    {proceed, S};
-do(_) ->
-    {break, [{response, {501, "Method not implemented\n"}}]}.
