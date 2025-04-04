@@ -7,7 +7,7 @@ This is a CRUD HTTP server written in ERLang which is connected to a SQLite data
 # Usage
 All interation with the app happens through its ```main``` module:
 ```console
-$ erl
+$ erl # (inside /module)
 1> c(main).
 2> main:start(). # compiles all modules and starts odbc and inets. by default listens to localhost:3003
 3> main:initdb(). # executes sql from schema/schema.sql
