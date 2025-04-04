@@ -49,8 +49,8 @@ Lastly, recompile and restart the app: call ```c(main).``` and then ```main:rest
 # Plans for the near future
 - Test coverage (unit and end-to-end)
 - PUT method
-- "Jsonify" all responses
-- Fix strings in JSON response are bytearrays  
+- "Jsonify" all responses (FIXED)
+- Fix strings in JSON response are bytearrays (FIXED)
 # Plans for the future future
 - Lower the amount of modifications needed to add a new entity
 - Entity type validation
