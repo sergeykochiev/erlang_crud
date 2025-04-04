@@ -24,20 +24,26 @@ $ erl
 # Default schema
 The JSON representation of the entities' schema available by default is located in ```schema/schema.json``` in the form of ```[{"{name}":{"{field_name}":"{field_type(arbitrary)}"}]```. It is also the result of a ```/``` query.
 # Adding new entities
-Before modifying the code, add new ```CREATE TABLE``` directive to ```schema/schema.sql``` to reinit the database using ```main.initdb().``` (or do it manually if you don't want to wipe the db). One thing to keep in mind is that because of how the app works, the primary key column should be named ```id```. Also, endpoint path and table names will always be the same, so try and keep table and module names the same for the sake of clarity.
-After making changes to the database, add your new module name (let's call it ```planet``` for convenience) to inets config inside the ```module/main.erl``` between ```root``` and ```notfound```:
-```erlang
-inets:start(httpd,
-  ...,
-  {modules, [root, person, car, engine, planet, notfound]}]).
-```
-Next, create a new file ```module/planets.erl``` with the following contents:
+Before modifying the code, add new ```CREATE TABLE``` directive to ```schema/schema.sql``` to reinit the database using ```main.initdb().``` (or do it manually if you don't want to wipe the db). One thing to keep in mind is that because of how the app works, the primary key column should be named ```id```. Also, endpoint path and table names will always be the same, so try and keep table and module names the same for the sake of clarity. After making changes to the database, create a new file for your new module (let's call it ```planet``` for convenience) - ```module/planet.erl``` - with the following contents:
 ```erlang
 -module(planet).
 -export([do/1]).
 
 do(M) ->
     util:default_crud(M, "planet").
+```
+Next, add your new module name to inets config between ```root``` and ```notfound```, which is located in the ```main:start/0``` function inside ```module/main.erl```. Optionally, you can add ```c(planet).``` into that function in order for your module to be compiled automatically among all others:
+```erlang
+start() ->
+    c:c(root),
+    c:c(util),
+    c:c(person),
+    c:c(planet), % your new line
+    c:c(car),
+    ...
+    inets:start(httpd,
+      ...,
+      {modules, [root, person, car, engine, planet, notfound]}]).
 ```
 Lastly, recompile and restart the app: call ```c(main).``` and then ```main:restart().``` in ERLang shell. You now should be able to interact with the database using CRUD operations at the ```/planet``` endpoint.
 # Plans for the near future
