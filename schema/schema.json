@@ -1,0 +1,27 @@
+{
+  "entities": {
+    "person": {
+      "id": "number",
+      "name": "string",
+      "surname": "string",
+      "age": "number",
+      "car_id": "number"
+    },
+    "engine": {
+      "id": "number",
+      "codename": "string",
+      "litre_capacity": "float",
+      "piston_count": "integer",
+      "shape": "string",
+      "horsepower": "integer"
+    },
+    "car": {
+      "id": "number",
+      "brand": "string",
+      "model": "string",
+      "year": "integer",
+      "mileage": "integer",
+      "engine_id": "integer"
+    }
+  }
+}
