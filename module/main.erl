@@ -28,6 +28,6 @@ stop() ->
     inets:stop().
 
 initdb() ->
-    {ok, ConRef} = util:connect_db(),
+    {ok, ConRef} = util:connect_main_db(),
     {ok, Bin} = file:read_file("../schema/schema.sql"),
     {odbc:sql_query(ConRef, binary_to_list(Bin)), odbc:disconnect(ConRef)}.

@@ -1,4 +1,6 @@
 -module(notfound).
+
 -export([do/1]).
 
-do(_) -> {break, [{response, {404, "NOT FOUND\n"}}]}.
+do(_) ->
+    util:http_respond_json(404).
