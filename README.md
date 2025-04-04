@@ -47,4 +47,5 @@ Lastly, restart the app: call ```main:restart().``` in ERLang shell. You now sho
 - Fix strings in JSON response are bytearrays  
 # Plans for the future future
 - Lower the amount of modifications needed to add a new entity
+- Generating JSON schema automatically (using the info provided by db)
 - Refactor, prettify and optimize (as much as possible)
