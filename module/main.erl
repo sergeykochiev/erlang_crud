@@ -17,7 +17,7 @@ start() ->
                  {server_root, "/tmp"},
                  {document_root, "/tmp"},
                  {bind_address, "localhost"},
-                 {modules, [root, person, notfound]}]).
+                 {modules, [root, person, car, engine, notfound]}]).
 
 restart() ->
     stop(),
