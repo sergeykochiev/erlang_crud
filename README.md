@@ -39,7 +39,7 @@ Next, create a new file ```module/planets.erl``` with the following contents:
 do(M) ->
     util:default_crud(M, "planet").
 ```
-Lastly, restart the app: call ```main:restart().``` in ERLang shell. You now should be able to interact with the database using CRUD operations at the ```/planet``` endpoint.
+Lastly, recompile and restart the app: call ```c(main).``` and then ```main:restart().``` in ERLang shell. You now should be able to interact with the database using CRUD operations at the ```/planet``` endpoint.
 # Plans for the near future
 - Test coverage (unit and end-to-end)
 - PUT method
